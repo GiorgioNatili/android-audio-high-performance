@@ -37,7 +37,7 @@ static int api_level;
 extern "C" {
 
 // create the engine and output mix objects
-JNIEXPORT void JNICALL Java_com_example_simplesynth_MainActivity_native_1createEngine(
+JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1createEngine(
     JNIEnv *env,
     jclass clazz,
     jint j_api_level) {
@@ -80,13 +80,14 @@ JNIEXPORT void JNICALL Java_com_example_simplesynth_MainActivity_native_1createE
   SLASSERT(result);
 }
 
-JNIEXPORT jobject JNICALL Java_com_example_simplesynth_MainActivity_native_1createAudioPlayer(
+JNIEXPORT jobject JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1createAudioPlayer(
     JNIEnv *env,
     jclass clazz,
     jint j_frame_rate,
     jint j_frames_per_buffer,
     jint j_num_buffers,
     jintArray j_cpu_ids) {
+
 
   AudioStreamFormat format;
   format.frame_rate = (uint32_t) j_frame_rate;
@@ -124,19 +125,19 @@ JNIEXPORT jobject JNICALL Java_com_example_simplesynth_MainActivity_native_1crea
   return player->getAudioTrack();
 }
 
-JNIEXPORT void JNICALL Java_com_example_simplesynth_MainActivity_native_1noteOn(
+JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1noteOn(
     JNIEnv *env,
     jclass clazz){
   synth->noteOn();
 }
 
-JNIEXPORT void JNICALL Java_com_example_simplesynth_MainActivity_native_1noteOff(
+JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1noteOff(
     JNIEnv *env,
     jclass clazz){
   synth->noteOff();
 }
 
-JNIEXPORT void JNICALL Java_com_example_simplesynth_MainActivity_native_1setWorkCycles(
+JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1setWorkCycles(
     JNIEnv *env,
     jclass clazz,
     jint workCycles){
@@ -144,7 +145,7 @@ JNIEXPORT void JNICALL Java_com_example_simplesynth_MainActivity_native_1setWork
 }
 
 JNIEXPORT void JNICALL
-Java_com_example_simplesynth_MainActivity_native_1setLoadStabilizationEnabled(
+Java_com_example_simplesynth_IDUNNOAudioManager_native_1setLoadStabilizationEnabled(
     JNIEnv *env,
     jclass clazz,
     jboolean is_enabled){
