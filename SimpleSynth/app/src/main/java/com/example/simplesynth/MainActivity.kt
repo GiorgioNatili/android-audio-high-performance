@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var mLoadThread: VariableLoadGenerator? = null
     private var mSettings: SharedPreferences? = null
 
-    lateinit var nativeAudioWrapper: IDUNNOAudioManager
+    lateinit var nativeAudioWrapper: NativeAudioWrapper
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,9 +48,9 @@ class MainActivity : AppCompatActivity() {
         setSustainedPerformanceMode()
 
         // Create a synthesizer whose callbacks are affined to the exclusive core(s) (if available)
-        nativeAudioWrapper = IDUNNOAudioManager()
+        nativeAudioWrapper = NativeAudioWrapper()
 
-        val audioConfig =  IDUNNOAudioManagerConfiguration(
+        val audioConfig =  NativeAudioWrapperConfiguration(
                 getSystemService(Context.AUDIO_SERVICE) as AudioManager)
 
         mDeviceInfoText.append("Exclusive core ids: ")
@@ -118,11 +118,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun createSynth(config: IDUNNOAudioManagerConfiguration): AudioTrack {
+    private fun createSynth(config: NativeAudioWrapperConfiguration): AudioTrack {
 
-        nativeAudioWrapper.native_createEngine(Build.VERSION.SDK_INT)
+        nativeAudioWrapper.createEngine(Build.VERSION.SDK_INT)
 
-        return nativeAudioWrapper.native_createAudioPlayer(config.frameRate,
+        return nativeAudioWrapper.createAudioPlayer(config.frameRate,
                 config.framesPerBuffer, NUM_BUFFERS, config.exclusiveCores)
     }
 
@@ -131,9 +131,9 @@ class MainActivity : AppCompatActivity() {
         val testToneSwitch = findViewById<View>(R.id.testToneSwitch) as Switch
         testToneSwitch.setOnCheckedChangeListener { compoundButton, b ->
             if (b) {
-                nativeAudioWrapper.native_noteOn()
+                nativeAudioWrapper.noteOn()
             } else {
-                nativeAudioWrapper.native_noteOff()
+                nativeAudioWrapper.noteOff()
             }
         }
 
@@ -153,7 +153,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val stabilizedLoadSwitch = findViewById<View>(R.id.stabilizedLoadSwitch) as Switch
-        stabilizedLoadSwitch.setOnCheckedChangeListener { compoundButton, b -> nativeAudioWrapper.native_setLoadStabilizationEnabled(b) }
+        stabilizedLoadSwitch.setOnCheckedChangeListener { compoundButton, b -> nativeAudioWrapper.setLoadStabilizationEnabled(b) }
 
         mWorkCyclesText = findViewById<View>(R.id.workCyclesText) as TextView?
 
@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setWorkCycles(workCycles: Int) {
 
-        nativeAudioWrapper.native_setWorkCycles(workCycles)
+        nativeAudioWrapper.setWorkCycles(workCycles)
 
         runOnUiThread { mWorkCyclesText!!.text = "Work cycles $workCycles" }
     }

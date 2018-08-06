@@ -37,7 +37,7 @@ static int api_level;
 extern "C" {
 
 // create the engine and output mix objects
-JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1createEngine(
+JNIEXPORT void JNICALL Java_com_example_simplesynth_NativeAudioWrapper_createEngine(
     JNIEnv *env,
     jclass clazz,
     jint j_api_level) {
@@ -80,7 +80,7 @@ JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1c
   SLASSERT(result);
 }
 
-JNIEXPORT jobject JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1createAudioPlayer(
+JNIEXPORT jobject JNICALL Java_com_example_simplesynth_NativeAudioWrapper_createAudioPlayer(
     JNIEnv *env,
     jclass clazz,
     jint j_frame_rate,
@@ -125,19 +125,19 @@ JNIEXPORT jobject JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native
   return player->getAudioTrack();
 }
 
-JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1noteOn(
+JNIEXPORT void JNICALL Java_com_example_simplesynth_NativeAudioWrapper_noteOn(
     JNIEnv *env,
     jclass clazz){
   synth->noteOn();
 }
 
-JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1noteOff(
+JNIEXPORT void JNICALL Java_com_example_simplesynth_NativeAudioWrapper_noteOff(
     JNIEnv *env,
     jclass clazz){
   synth->noteOff();
 }
 
-JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1setWorkCycles(
+JNIEXPORT void JNICALL Java_com_example_simplesynth_NativeAudioWrapper_setWorkCycles(
     JNIEnv *env,
     jclass clazz,
     jint workCycles){
@@ -145,7 +145,7 @@ JNIEXPORT void JNICALL Java_com_example_simplesynth_IDUNNOAudioManager_native_1s
 }
 
 JNIEXPORT void JNICALL
-Java_com_example_simplesynth_IDUNNOAudioManager_native_1setLoadStabilizationEnabled(
+Java_com_example_simplesynth_NativeAudioWrapper_setLoadStabilizationEnabled(
     JNIEnv *env,
     jclass clazz,
     jboolean is_enabled){
